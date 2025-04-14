@@ -2,21 +2,20 @@ const express = require('express');
 const path = require('path');
 const app = express();
 
-// ⚠️ Cambia esto para apuntar a la carpeta correcta
-const distFolder = path.join(__dirname, 'dist/contador-app/browser');
+// Middleware para registrar las IPs
+app.use((req, res, next) => {
+    const ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
+    console.log(`Usuario accediendo desde la IP: ${ip}`);
+    next(); // Asegúrate de llamar a 'next()' para que continúe la ejecución
+});
 
-app.use(express.static(distFolder));
+app.use(express.static(path.join(__dirname, 'dist/contador-app')));
 
 app.get('/*', (req, res) => {
-    res.sendFile(path.join(distFolder, 'index.html'));
+    res.sendFile(path.join(__dirname, 'dist/contador-app/index.html'));
 });
 
 const port = process.env.PORT || 8080;
 app.listen(port, () => {
-    console.log(`Servidor ejecutándose en el puerto ${port}`);
-});
-
-app.use((req, res, next) => {
-    console.log(`[${new Date().toISOString()}] IP: ${req.ip} - URL: ${req.originalUrl}`);
-    next();
+    console.log(`Servidor corriendo en el puerto ${port}`);
 });
