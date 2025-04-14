@@ -7,9 +7,9 @@
         "build": "ng build --configuration production",
         "postinstall": "npm run build",
         "watch": "ng build --watch --configuration development",
-        "test": "ng test",
-        "serve:ssr:contador-app": "node dist/contador-app/server/server.mjs"
+        "test": "ng test"
     },
+
 
     "private": true,
     "dependencies": {

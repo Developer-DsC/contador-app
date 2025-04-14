@@ -2,15 +2,16 @@ const express = require('express');
 const path = require('path');
 const app = express();
 
-// Servir archivos estáticos de la carpeta dist/contador-app
-app.use(express.static(path.join(__dirname, 'dist', 'contador-app')));
+// ⚠️ Cambia esto para apuntar a la carpeta correcta
+const distFolder = path.join(__dirname, 'dist/contador-app/browser');
 
-// Redirigir todas las solicitudes a index.html
+app.use(express.static(distFolder));
+
 app.get('/*', (req, res) => {
-    res.sendFile(path.join(__dirname, 'dist', 'contador-app', 'index.html'));
+    res.sendFile(path.join(distFolder, 'index.html'));
 });
 
 const port = process.env.PORT || 8080;
 app.listen(port, () => {
-    console.log(`Server running on port ${port}`);
+    console.log(`Servidor ejecutándose en el puerto ${port}`);
 });
