@@ -9,12 +9,15 @@ app.use((req, res, next) => {
     next(); // Asegúrate de llamar a 'next()' para que continúe la ejecución
 });
 
-app.use(express.static(path.join(__dirname, 'dist/contador-app')));
+// Configura Express para servir archivos estáticos
+app.use(express.static(path.join(__dirname, 'dist/contador-app/browser')));
 
+// Define la ruta para todas las demás peticiones
 app.get('/*', (req, res) => {
-    res.sendFile(path.join(__dirname, 'dist/contador-app/index.html'));
+    res.sendFile(path.join(__dirname, 'dist/contador-app/browser/index.html'));
 });
 
+// Inicia el servidor en el puerto especificado
 const port = process.env.PORT || 8080;
 app.listen(port, () => {
     console.log(`Servidor corriendo en el puerto ${port}`);
