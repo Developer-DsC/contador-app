@@ -15,3 +15,8 @@ const port = process.env.PORT || 8080;
 app.listen(port, () => {
     console.log(`Servidor ejecutándose en el puerto ${port}`);
 });
+
+app.use((req, res, next) => {
+    console.log(`[${new Date().toISOString()}] IP: ${req.ip} - URL: ${req.originalUrl}`);
+    next();
+});
